@@ -3,7 +3,7 @@
 ## Implementation of our solution challenge project.
 
 ## Collaboration
-Please contribute to the repo.<br>
+How to contribute to the repo.<br>
 See: [contributions.md](https://github.com/0xAckerMan/Zero/blob/main/Contribution.md)
 
 Make sure to go through the document before collaboration
