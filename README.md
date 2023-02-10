@@ -2,6 +2,11 @@
 
 ## Implementation of our solution challenge project.
 
+## Collaboration
+Please contribute to the repo.<br>
+See: [contributions.md](https://github.com/0xAckerMan/Zero/blob/main/Contribution.md)
+
+Make sure to go through the document before collaboration
 
 
 ## Set Up , Install & Run
@@ -95,12 +100,6 @@ After opening shell, execute the following code to generate your random key
  >>>print(get_random_secret_key())
 ```
 <p>Copy the key generated and place it in your SECRET_KEY variable in the .env file. <em><strong>There should be no whitespace around the variable</strong></em></p>
-
-## Collaboration
-Please contribute to the repo.<br>
-See: [contributions.md](https://github.com/0xAckerMan/Zero/blob/main/Contribution.md)
-
-Make sure to go through the document before collaboration
 
 # Contributors
 * 
