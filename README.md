@@ -36,6 +36,13 @@ Windows:
 ```bash
 myproject\Scripts\activate
 ```
+
+Incase of an error due to permission, open powershell as administrator and run this command and accept. Run the above command again
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 Unix/MacOS:
 ```bash
 source myproject/bin/activate
