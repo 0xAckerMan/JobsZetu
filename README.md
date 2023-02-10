@@ -34,7 +34,7 @@ This will setup a virtual environment. Then you have to activate the environment
 
 Windows:
 ```bash
-myproject\Scripts\activate.bat
+myproject\Scripts\activate
 ```
 Unix/MacOS:
 ```bash
