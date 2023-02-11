@@ -109,4 +109,4 @@ After opening shell, execute the following code to generate your random key
 <p>Copy the key generated and place it in your SECRET_KEY variable in the .env file. <em><strong>There should be no whitespace around the variable</strong></em></p>
 
 # Contributors
-* 
+* [Joel Kores](https://github.com/0xAckerMan)
