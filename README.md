@@ -41,7 +41,7 @@ Incase of an error due to permission, open powershell as administrator and run t
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
+``
 
 Unix/MacOS:
 ```bash
