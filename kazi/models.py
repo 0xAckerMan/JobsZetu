@@ -1,7 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+
 
 # Create your models here.
-
 class Candidate(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -10,34 +13,74 @@ class Candidate(models.Model):
     photo = models.ImageField(upload_to='candidate_photos/', null=True)
     video = models.FileField(upload_to='candidate_videos/', blank=True, null=True)
     featured_image = models.ImageField(upload_to='candidate_featured_images/', blank=True, null=True)
-    category = models.ForeignKey('JobCategory', on_delete=models.CASCADE, default='default_category', null=True)
+    category = models.ForeignKey('JobCategory', on_delete=models.CASCADE, default=0, null=True)
     skills = models.TextField(null=True)
     rate_per_hour = models.DecimalField(max_digits=8, decimal_places=2, null=True)
-    education_level = models.CharField(max_length=100, null=True)
-    education_history = models.TextField(null=True)
-    working_experience = models.TextField(null=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='candidate', null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='candidate_resumes/', null=True)
-    short_description = models.CharField(max_length=500, null=True)
+    short_description = models.TextField(null=True)
 
     def __str__(self):
         return self.name
-'''
 
-class Candidate(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    education = models.ManyToManyField('Education', blank=True)
-    work_experience = models.ManyToManyField('WorkExperience', blank=True)
 
-    
-class Candidate(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
+# signals 1
+#     def save(self, *args, **kwargs):
+#         if not self.user:
+#             user = User.objects.create_user(self.email, self.email)
+#             self.user = user
+#         super().save(*args, **kwargs)
 
-    
+
+# @receiver(post_save, sender=User)
+# def save_candidate(sender, instance, created, **kwargs):
+#     if created:
+#         Candidate.objects.create(user=instance, email=instance.email)
+
+#end
+
+# @receiver(post_save, sender=User)
+# def create_candidate(sender, instance, created, *args, **kwargs):
+#     if created:
+#         Candidate.objects.create(user=instance, name=instance.username)
+#         print(instance, 'candidate created')
+
+# signal 2
+# @receiver(post_save, sender=User)
+# def create_candidate(sender, instance, created, **kwargs):
+#     if created:
+#         try:
+#             instance.candidates
+#         except Candidate.DoesNotExist:
+#             Candidate.objects.create(user=instance, name=instance.username, email=instance.email)
+#             print(instance, 'candidate created')
+
+#there
+
+# @receiver(post_save, sender=User)
+# def save_candidate(sender, instance, *args, **kwargs):
+#     try:
+#         instance.candidates.name = instance.username
+#         instance.candidates.save()
+#     except Candidate.DoesNotExist:
+#         pass
+
+class BackgroundData(models.Model):
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name='work_experiences', null=True)
+    company_name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    work_start_date = models.DateField()
+    work_end_date = models.DateField()
+    institution= models.CharField(max_length=100)
+    course_name = models.CharField(max_length=100)
+    institution_start_date = models.DateField()
+    institution_end_date = models.DateField()
+
     def __str__(self):
-        return self.name
-'''
+        return f'{self.company_name})'
+
+
 
 class JobList(models.Model):
     title = models.CharField(max_length=100)
@@ -59,7 +102,7 @@ class JobList(models.Model):
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     created_date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='job_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='media/job_images/', blank=True, null=True)
     link = models.URLField(blank=True, null=True)
     company = models.ForeignKey('Company', on_delete=models.CASCADE, blank=True, null=True)
 
@@ -70,8 +113,8 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     website = models.URLField()
     tagline = models.CharField(max_length=200)
-    video = models.FileField(upload_to='company_videos/', blank=True, null=True)
-    logo = models.ImageField(upload_to='company_logos/')
+    video = models.FileField(upload_to='media/company_videos/', blank=True, null=True)
+    logo = models.ImageField(upload_to='media/company_logos/')
     email = models.EmailField()
     location = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
@@ -109,23 +152,3 @@ class Employer(models.Model):
 
 
 
-
-class Education(models.Model):
-    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name="educations")
-    school_name = models.CharField(max_length=100)
-    course_name = models.CharField(max_length=100)
-    start_date = models.DateField()
-    end_date = models.DateField()
-
-    def __str__(self):
-        return f'{self.school_name} ({self.candidate.name})'
-
-class WorkExperience(models.Model):
-    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE, related_name='work_experiences')
-    company_name = models.CharField(max_length=100)
-    role = models.CharField(max_length=100)
-    start_date = models.DateField()
-    end_date = models.DateField()
-
-    def __str__(self):
-        return f'{self.company_name} ({self.candidate.name})'
