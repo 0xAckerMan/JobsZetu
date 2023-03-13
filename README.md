@@ -110,3 +110,5 @@ After opening shell, execute the following code to generate your random key
 
 # Contributors
 * Joel Kores
+* Abundance Kioko
+* Kate Ratemo
