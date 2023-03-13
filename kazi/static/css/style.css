@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root{
+    --green:rgb(90, 180, 90);
+    --lightGrey: #8f8f8f;
+    --darkGrey: #23242a;
+    --white: whitesmoke;
+}
+
+body{
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background: var(--darkGrey);
+    overflow: hidden;
+    
+
+}
+
+.swiper {
+    position: relative;
+    width: 60vw;
+    height: max-content;
+    padding: 8vh 8vw;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+}
+
+.hider{
+    overflow: hidden;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.formParent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    /* place-items: center; */
+    padding: 2px;
+}
+
+.formParent{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    display: grid;
+    /* place-items: center; */
+    padding: 2px;
+}
+
+.formParent.login{
+    height: 75%;
+}
+
+.formParent::after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-22deg, var(--green), var(--white), var(--darkGrey));
+    transition: transform 3s;
+}
+
+.formParent:hover::after{
+    transform: rotate(180deg);
+}
+
+.formParent.register{
+    grid-template-columns: 25% 1fr;
+    z-index: 300;
+    
+}
+
+.formParent.register .reg_logo {
+    display: grid;
+    place-items: center;
+    color: white;
+    z-index: 400;
+    background: var(--darkGrey);
+    width: 100%;
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+}
+
+
+.form {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 8px 8px 0;
+    background: linear-gradient(90deg,#23242a,#28292d);
+    z-index: 10;
+    padding: 50px 40px;
+    display: grid;
+    gap: 2rem;
+}
+
+.form h2{
+    color: var(--green);
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+.inputBox{
+    position: relative;
+    width: 100%;
+}
+
+.inputBox input{
+    position: relative;
+    display: grid;
+    align-content: center;
+    width: 100%;
+    padding: 0 10px ;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--darkGrey);
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+    z-index: 10;
+    height: 45px;
+}
+
+
+
+.inputBox span{
+    position: absolute;
+    left: 0;
+    top: -10px;
+    padding: 20px 10px;
+    font-size: 1rem;
+    color: var(--lightGrey);
+    pointer-events: none;
+    letter-spacing: 0.05rem;
+    transition: 0.5s;
+    font-weight: 500;
+}
+
+#form_register .inputBox span{
+    top: -21px;
+    padding-bottom: 20px;
+}
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span{
+    color: var(--green);
+    transform: translateX(0px) translateY(0px);
+    font-size: 0.85rem;
+}
+
+
+
+.inputBox i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--green);
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+}
+
+
+.inputBox input:valid ~ i,
+.inputBox input:focus ~ i{
+    height: 44px;
+}
+
+.links{
+    display: flex;
+    justify-content: space-between;
+}
+
+.links a, .links p{
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: var(--lightGrey);
+    text-decoration: none;
+}
+
+.links a:nth-child(2){
+    color: var(--green);
+}
+
+input[type="submit"]{
+    border: none;
+    outline: none;
+    background: var(--green);
+    padding: 1px 15px;
+    width: max-content;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+input[type="submit"]:active,input[type="submit"]:hover{
+    opacity: .7;
+    color: var(--white);
+}
+
+@media only screen and (max-width:1050px){
+
+    .swiper {
+        width: 70vw;
+    }
+
+}
+
+@media only screen and (max-width:850px){
+
+    .swiper {
+        width: 80vw;
+    }
+    
+    body{
+        overflow-y: auto;
+    }
+
+}
+
+@media only screen and (max-width:700px){
+
+    .swiper {
+        width: 90vw;
+    }
+
+}
+
+@media only screen and (max-width:600px){
+
+
+    .formParent.register {
+        grid-template-columns: 1fr;
+        z-index: 300;
+    }
+
+    .formParent.register .reg_logo{
+        display: none;
+    }
+
+}
+
+
+@media only screen and (max-width:500px){
+
+    .swiper {
+        width: 95vw;
+    }
+
+    .links{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, max-content);
+    }
+
+    .inputBox span{
+        top: -20px;
+    }
+
+    .links a{
+        display: block ruby;
+
+    }
+
+}
+
+@media only screen and (max-width:500px){
+
+    
+}
+

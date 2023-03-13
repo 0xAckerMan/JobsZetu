@@ -1,6 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
+    <!-- <h2>Login</h2> -->
+    <!-- <form method="post">
     {% csrf_token %}
 
     {% for message in messages %}
@@ -15,5 +18,141 @@
     </form>
     <br>
     <a href="{% url 'register' %}">Register</a>
+-->
+
+    
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="formParent login">
+                    <form class="form" method="post">
+                        {% csrf_token %}
+                        <h2>Log in</h2>
+            
+                        <div class="inputBox">
+                            <input id="username" name="username" type="text" required>
+                            <span>Username</span>
+                            <i></i>
+                        </div>
+            
+                        <div class="inputBox">
+                            <input id="password" name="password" type="password" required>
+                            <span>Password</span>
+                            <i></i>
+                        </div>
+            
+                        <div class="links">
+                            <a href="#">Forgot Password</a>
+            
+                            <a href="{% url 'register' %}" class="Signup">Signup</a>
+                        </div>
+                        <input type="submit" name="btn_check" value="Login">
+                    </form>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="formParent register">
+                    <div class="reg_logo">
+                        <h1>Zero</h1>
+                    </div>
+                    <form id="form_register" class="form" method="post">
+                        {% csrf_token %}
+                        <h2>Signup</h2>
+            
+                        <div class="inputBox">
+                            <input id="username" name="username" type="text" required>
+                            <span>Username</span>
+                            <i></i>
+                        </div>
+
+                        <div class="inputBox">
+                            <input id="email" name="email" type="text" required>
+                            <span>Email</span>
+                            <i></i>
+                        </div>
+            
+                        <div class="inputBox">
+                            <input id="password1" name="password1" type="password" required>
+                            <span>Password</span>
+                            <i></i>
+                        </div>
+
+                        <div class="inputBox">
+                            <input id="password" name="password2" type="password" required>
+                            <span>Confirm Password</span>
+                            <i></i>
+                        </div>
+            
+                        <div class="links">
+                            <p>
+                                <input type="checkbox" name="agree" id="">
+                                Agree to terms and conditions
+                            </p>
+                            <a href="{% url 'register' %}" class="Signup">Already a User? Login</a>
+                        </div>
+                        <input type="submit" value="Signup" name="btn_check" id="Signup">
+                    </form>
+                </div>           
+            </div>
+        
+        </div>
+        
+        
+        <!-- <div class="swiper-pagination"></div> -->
+    </div>
+
+
+    <script>
+
+    window.addEventListener('load', function() {
+        let swrappers = document.getElementsByClassName("swiper-wrapper");
+        console.log(swrappers)
+        for (let i = 0; i < swrappers.length; i++) {
+            swrappers[i].classList.remove('hider');
+        }
+    });
+
+    let form = document.getElementById('form_register');
+
+    // // document.getElementById('Signup').addEventListener('click', function(e){
+    // //     submitFormData()
+    // // })
+    
+    
+    
+    
+    // // function submitFormData(){
+    //     var SignupData = {
+    //         'username': form.username.value,
+    //         'email': form.email.value,
+    //         'password1': form.password1.value,
+    //         'password2': form.password2.value,
+    //     }
+        
+        
+    //     var url = 'register/';
+
+    //             fetch(url, {
+    //                 method:'POST',
+    //                 headers: {
+    //                     'Content-Type':'application/json',
+    //                     'X-CSRFToken': csrftoken,
+    //                 },
+    //                 body:JSON.stringify({'SignupData': SignupData,})
+
+    //             })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log('success:',data);
+    //                 alert('Transaction completed');
+
+    //             })
+        
+        
+    // }
+    </script>
+
+
 {% endblock %}
 
