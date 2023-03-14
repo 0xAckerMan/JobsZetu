@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Jobzetu{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    
+    <script>
+      let user = '{{request.user}}';
+
+      document.addEventListener("DOMContentLoaded", () => {
+        let swrappers = document.getElementsByClassName("swiper-wrapper");
+        console.log(swrappers)
+        for (let i = 0; i < swrappers.length; i++) {
+          
+            swrappers[i].classList.add('hider');
+        }
+      });
+
+
+      function getToken(name){
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== ''){
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++){
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0 , name.length + 1) === (name + '=')){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+      }
+      const csrftoken = getToken('csrftoken')
+    </script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'kazi' %}">JobsZetu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'candidate_list' %}">Workers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'job_list' %}">Jobs</a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" href="{% url 'candidate_create' %}">Update Profile</a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" href="{% url 'logout' %}">logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav> -->
+    
+      {% block content %}
+      {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+        effect: "flip",
+        // grabCursor: true,
+        loop: true,
+        speed: 1500,
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        navigation: {
+            nextEl: ".Signup",
+            prevEl: ".Signup",
+        },
+        
+        });
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
