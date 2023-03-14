@@ -1,0 +1,11 @@
+
+{% extends 'kazi/base.html' %}
+
+{% block content %}
+  <h1>Update your profile</h1>
+  <form method="post" action="{% url 'candidate_create' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="submit">Create</button>
+  </form>
+{% endblock %}
