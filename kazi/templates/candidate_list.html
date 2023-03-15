@@ -1,0 +1,14 @@
+{% extends 'kazi/base.html' %}
+
+{% block content %}
+  <h1>Workers</h1>
+  <ul>
+    {% for candidate in candidates %}
+      <li>
+        <a href="{% url 'candidate_detail' candidate.pk %}">{{ candidate.name }}</a>
+      </li>
+    {% empty %}
+      <li>No candidates found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
