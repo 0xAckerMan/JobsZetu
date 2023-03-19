@@ -4,7 +4,12 @@ from . import views
 
 urlpatterns = [
     # URL patterns for candidates
-    path('', views.home, name = 'kazi'),
+    path('', views.home, name='kazi'),
+    path('about', views.about, name='about'),
+    path('contactus', views.contactus, name='contactus'),
+    path('category', views.category, name='category'),
+
+
     path('login/', views.LoginPage, name='login'),
     path('logout/', views.LogoutUser, name='logout'),
     path('edit_candidate/', views.edit_candidate, name='edit_candidate'),
