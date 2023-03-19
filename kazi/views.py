@@ -176,9 +176,23 @@ def company_create(request):
 
 
 #basic route
-@login_required(login_url="login")
 def home(request):
     return render(request, "test/test.html")
 
+
+def about(request):
+    return render(request, "test/about.html")
+
+
+def contactus(request):
+    return render(request, "test/contact.html")
+
+def category(request):
+    return render(request, "test/category.html")
+
+
+def error_404_view(request, exception):
+
+    return render(request, 'test/404.html')
 # def register(request):
 #     return render(request, 'register.html')
