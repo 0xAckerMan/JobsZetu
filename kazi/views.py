@@ -124,27 +124,32 @@ def candidate_delete(request, candidate_id):
 
 # JobList views
 
+
 @login_required(login_url="login")
 def joblist_list(request):
     joblists = JobList.objects.all()
     return render(request, 'job_list.html', {'joblists': joblists})
 
-def joblist_detail(request, joblist_id):
-    joblist = get_object_or_404(JobList, pk=joblist_id)
-    return render(request, 'joblist_detail.html', {'joblist': joblist})
+# def joblist_detail(request, joblist_id):
+#     joblist = get_object_or_404(JobList, id=joblist_id)
+#     return render(request, 'joblist_detail.html', {'joblist': joblist})
 
+@login_required(login_url="login")
 def joblist_create(request):
+    job_categories = JobCategory.objects.all()
     if request.method == 'POST':
-        form = JobListForm(request.POST)
+        form = JobListForm(request.POST, request.FILES)
         if form.is_valid():
-            joblist = form.save()
-            return redirect('joblist_detail', joblist_id=joblist.id)
+            job = form.save(commit=False)
+            job.user = request.user
+            job.save()
+            return redirect('job_create')
     else:
         form = JobListForm()
-    return render(request, 'joblist_form.html', {'form': form})
+    return render(request, 'test/postjob.html', {'form': form, "job_categories":job_categories})
 
 def joblist_update(request, joblist_id):
-    joblist = get_object_or_404(JobList, pk=joblist_id)
+    joblist = get_object_or_404(JobList, id=joblist_id)
     if request.method == 'POST':
         form = JobListForm(request.POST, instance=joblist)
         if form.is_valid():
@@ -177,7 +182,12 @@ def company_create(request):
 
 #basic route
 def home(request):
-    return render(request, "test/test.html")
+    joblist = JobList.objects.all()
+    print(joblist.values())
+    context = {
+        "joblist":joblist,
+    }
+    return render(request, "test/test.html", context)
 
 
 def about(request):
@@ -188,7 +198,12 @@ def contactus(request):
     return render(request, "test/contact.html")
 
 def category(request):
-    return render(request, "test/category.html")
+    joblist = JobList.objects.all()
+    print(joblist.values())
+    context = {
+        "joblist":joblist,
+    }
+    return render(request, "test/category.html", context)
 
 
 def error_404_view(request, exception):
