@@ -22,7 +22,7 @@ urlpatterns = [
 
     # URL patterns for jobs
     path('', views.joblist_list, name='job_list'),
-    path('jobs/<int:pk>/', views.joblist_detail, name='job_detail'),
+    # path('jobs/<int:pk>/', views.joblist_detail, name='job_detail'),
     path('jobs/create/', views.joblist_create, name='job_create'),
     path('jobs/<int:pk>/update/', views.joblist_update, name='job_update'),
     path('jobs/<int:pk>/delete/', views.joblist_delete, name='job_delete'),
