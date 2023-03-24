@@ -1,0 +1,54 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script >
+
+    const job_subcategories = {
+        'Accounting and Finance': ['Financial analysis', 'Audit and taxation', 'Accounts payable/receivable'],
+        'Administration and Office Support': ['Executive assistance', 'Office management', 'Reception and switchboard'],
+        'Architecture and Engineering': ['Civil engineering', 'Mechanical engineering', 'Electrical engineering'],
+        'Arts and Design': ['Graphic design', 'Photography', 'Art direction'],
+        'Business and Management': ['Sales and marketing management', 'Operations management', 'Project management'],
+        'Construction and Trades': ['Plumbing', 'Electrical', 'Carpentry'],
+        'Customer Service': ['Call center', 'Helpdesk support', 'Technical support'],
+        'Education and Training': ['Teaching and lecturing', 'Curriculum development', 'Training and development'],
+        'Healthcare and Medical': ['Nursing', 'Pharmacy', 'Medical laboratory'],
+        'Hospitality and Tourism': ['Hotel and restaurant management', 'Tourism and travel', 'Food and beverage service'],
+        'Human Resources': ['Recruitment and talent acquisition', 'Employee relations', 'Compensation and benefits'],
+        'Information Technology': ['Software development', 'Network engineering', 'Cybersecurity'],
+        'Legal': ['Corporate law', 'Litigation', 'Intellectual property'],
+        'Marketing and Communications': ['Public relations', 'Brand management', 'Digital marketing'],
+        'Non-profit and Volunteer': ['Fundraising and development', 'Community outreach', 'Volunteer management'],
+        'Retail and Sales': ['Retail management', 'Sales representative', 'Merchandising'],
+        'Science and Technology': ['Research and development', 'Data analysis', 'Biotechnology'],
+        'Social Services': ['Social work', 'Counseling', 'Case management'],
+        'Transportation and Logistics': ['Truck driving', 'Supply chain management', 'Warehouse operations'],
+        'other': ['other']
+    };
+
+
+    
+    let Job_Cat = document.getElementById("id_job_category");
+    let Job_subCat = document.getElementById("id_job_subcategory");
+    
+    function Ourfunction(){
+        let myfilter = Job_Cat.value;
+        let opt = job_subcategories[myfilter];
+        // alert(opt.length)
+
+        let all_choices = []
+        for (let i = 0; i < opt.length; i++) {
+            let htmlelem = `<option value="${opt[i]}">${opt[i]}</option>`
+            Job_subCat.innerHTML = "";
+            all_choices.push(htmlelem);
+            
+        }
+        all_choices.push(`<option value="other">other</option>`);
+        Job_subCat.innerHTML = all_choices;
+    }
+    Job_Cat.addEventListener('click', Ourfunction);
+
+</script>
+{% endblock %}
