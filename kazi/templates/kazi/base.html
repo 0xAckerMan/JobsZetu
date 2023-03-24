@@ -4,7 +4,6 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}Jobzetu{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <script>
@@ -58,14 +57,20 @@
   </head>
   <body>
     
-    
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg navbar-light shadow sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+        <a href="{% url 'kazi' %}" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
             <h1 class="m-0 text-primary">Jobo</h1>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <button id="nav-toggler" type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -86,9 +91,29 @@
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                     </div>
                 </div>
+                
+                {% if user.is_authenticated %}
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'logout' %}" class="dropdown-item">logout</a>
+                            <a href="#" class="dropdown-item">Profile</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'login' %}" class="dropdown-item">login</a>
+                        </div>
+                    </div>
+                    
+                {% endif %}
                 <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
+                
             </div>
-            <a href="" id="post_a_job" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{% url 'job_create' %}" id="post_a_job" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Post A Job<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
