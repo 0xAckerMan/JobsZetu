@@ -1,0 +1,91 @@
+{% extends 'kazi/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="post_job_form">
+    <h1>Add a New Job Listing</h1>
+    <form id="post_job" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" name="location" required>
+        </div>
+
+        <div class="form-group">
+            <label>Job Type</label>
+            <select class="form-control" name="job_type" required>
+                <option value="" selected disabled>Select Job Type</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Remote">Remote</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Tag</label>
+            <input type="text" class="form-control" name="tag" required>
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" name="category" required>
+                <option value="" selected disabled>Select Category</option>
+                {% for category in job_categories %}
+                <option value="{{ category.id }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Company</label>
+            <select class="form-control" name="company">
+                <option value="">Select Company</option>
+                {% for company in companies %}
+                <option value="{{ company.id }}">{{ company.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group" style="grid-column: span 2;">
+            <label>Description</label>
+            <textarea class="form-control" name="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Rate per Hour</label>
+            <input type="text" class="form-control" name="rate_per_hour">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select class="form-control" name="status" required>
+                <option value="" selected disabled>Select Status</option>
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+                <option value="Archived">Archived</option>
+            </select>
+        </div>
+
+        <div class="form-group image_job_form">
+            <label>Image</label>
+            <input type="file" class="form-control-file" name="image">
+        </div>
+
+        <div class="form-group">
+            <label>Link</label>
+            <input type="url" class="form-control" name="link">
+        </div>
+
+        
+        
+        <button type="submit" class="btn btn-primary post_job_form_btn">Submit</button>
+    </form>
+</section>
+{% endblock %}
