@@ -2,8 +2,16 @@
 {% load static %}
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Jobzetu{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if title %}
+            {{title}}
+        {% else %}
+            JobZetu
+        {% endif %}
+    </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <script>
@@ -36,6 +44,8 @@
       const csrftoken = getToken('csrftoken')
     </script>
 
+    <script src="https://unpkg.com/imask"></script>
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,16 +54,24 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Font Awesome Free's Solid and Brand files -->
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
+    
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_job.css' %}">
+  </head>
   </head>
   <body>
     
@@ -66,9 +84,9 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow sticky-top p-0">
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-0">
         <a href="{% url 'kazi' %}" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-            <h1 class="m-0 text-primary">Jobo</h1>
+            <h1 class="m-0 text-primary">JobZetu</h1>
         </a>
         <button id="nav-toggler" type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -80,7 +98,7 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
                     <div class="dropdown-menu rounded-0 m-0">
-                        <a href="job-list.html" class="dropdown-item">Job List</a>
+                        <a href="{% url 'job_list' %}" class="dropdown-item">Job List</a>
                         <a href="job-detail.html" class="dropdown-item">Job Detail</a>
                     </div>
                 </div>
@@ -98,7 +116,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="{% url 'logout' %}" class="dropdown-item">logout</a>
-                            <a href="#" class="dropdown-item">Profile</a>
+                            <a href="{% url 'profile' %}" class="dropdown-item">Profile</a>
                         </div>
                     </div>
                 {% else %}
@@ -119,8 +137,30 @@
     <!-- Navbar End -->
 
 
-      {% block content %}
-      {% endblock %}
+    {% block content %}
+    {% endblock %}
+
+
+    <button class="chat-btn"> 
+        <i class="material-icons"> comment </i>
+    </button>
+
+    <div class="chat-popup">
+        <div class="badge">1</div>
+        <div class="chat-area">
+        <div class="income-msg">
+            <img src="{% static 'images/logo.png' %}" class="avatar" alt="">
+            <span class="msg"> Hi, How can I help you?</span>
+        </div>   
+        </div>
+
+        <div class="input-area">
+            <input type="text">
+            <button id="emoji-btn"> &#127773;</button>
+            <button class="submit"> <i class="material-icons"> send</i></button>
+        </div>
+    </div>
+
 
 
     <!-- Footer Start -->
@@ -147,7 +187,7 @@
                   <h5 class="text-white mb-4">Contact</h5>
                   <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Nairobi, CBD, KE</p>
                   <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+254 712 345 678</p>
-                  <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@jobo.com</p>
+                  <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@jobZetu.com</p>
                   <div class="d-flex pt-2">
                       <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                       <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -169,9 +209,9 @@
           <div class="copyright">
               <div class="row">
                   <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                      &copy; <a class="border-bottom" href="#">Jobo</a>, All Right Reserved. 
+                      &copy; <a class="border-bottom" href="#">JobZetu</a>, All Right Reserved. 
                       
-                      Designed By <a class="border-bottom" href="">Zero</a>
+                      Designed By <a class="border-bottom" href="">JobZetu</a>
                   </div>
                   <div class="col-md-6 text-center text-md-end">
                       <div class="footer-menu">
@@ -192,6 +232,7 @@
     <a href="#" id="to-top" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

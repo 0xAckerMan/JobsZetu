@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.home, name='kazi'),
     path('about', views.about, name='about'),
     path('contactus', views.contactus, name='contactus'),
-    path('category', views.category, name='category'),
+    path('profile', views.profile, name='profile'),
 
 
     path('login/', views.LoginPage, name='login'),
@@ -21,11 +21,12 @@ urlpatterns = [
     path('candidates/<int:candidate_id>/delete/', views.candidate_delete, name='candidate_delete'),
 
     # URL patterns for jobs
-    path('', views.joblist_list, name='job_list'),
-    # path('jobs/<int:pk>/', views.joblist_detail, name='job_detail'),
+    path('jobs/list', views.joblist_list, name='job_list'),
+    path('jobs/talent/', views.talent, name='talent'),
     path('jobs/create/', views.joblist_create, name='job_create'),
     path('jobs/<int:pk>/update/', views.joblist_update, name='job_update'),
     path('jobs/<int:pk>/delete/', views.joblist_delete, name='job_delete'),
+    path('jobs/category', views.category, name='category'),
 
     # URL patterns for companies
     path('companies/', views.company_list, name='company_list'),

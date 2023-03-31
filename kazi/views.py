@@ -46,6 +46,7 @@ def LoginPage(request):
             if user is not None:
                 
                 login(request, user)
+                # messages.success(request, f"Welcome back {user}")
                 return redirect('kazi')
             else:
                 
@@ -128,7 +129,18 @@ def candidate_delete(request, candidate_id):
 @login_required(login_url="login")
 def joblist_list(request):
     joblists = JobList.objects.all()
-    return render(request, 'job_list.html', {'joblists': joblists})
+    context = {'joblist': joblists}
+    return render(request, 'job_list.html', context)
+
+@login_required(login_url="login")
+def talent(request):
+    Candidates = Candidate.objects.all()
+    categories = JobCategory.objects.all()
+    context = {
+        'candidates': Candidates,
+        "categories":categories
+    }
+    return render(request, 'test/talent.html', context)
 
 # def joblist_detail(request, joblist_id):
 #     joblist = get_object_or_404(JobList, id=joblist_id)
@@ -143,6 +155,7 @@ def joblist_create(request):
             job = form.save(commit=False)
             job.user = request.user
             job.save()
+            messages.success(request, "Job listing added")
             return redirect('job_create')
     else:
         form = JobListForm()
@@ -183,9 +196,11 @@ def company_create(request):
 #basic route
 def home(request):
     joblist = JobList.objects.all()
+    categories = JobCategory.objects.all()
     print(joblist.values())
     context = {
         "joblist":joblist,
+        "categories":categories
     }
     return render(request, "test/test.html", context)
 
@@ -197,10 +212,25 @@ def about(request):
 def contactus(request):
     return render(request, "test/contact.html")
 
+
+def profile(request):
+    user = request.user
+    candidate = Candidate.objects.get(user=user)
+    candidate_skills = Candidate.objects.filter(user=user).values()[0]['skills'].split(",")
+    context = {
+        "user": user,
+        "candidate": candidate,
+        "candidate_skills":candidate_skills,
+    }
+    return render(request, "test/profile.html", context)
+
+
 def category(request):
     joblist = JobList.objects.all()
+    categories = JobCategory.objects.all()
     print(joblist.values())
     context = {
+        "categories":categories,
         "joblist":joblist,
     }
     return render(request, "test/category.html", context)

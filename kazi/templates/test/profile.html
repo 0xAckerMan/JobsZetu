@@ -1,0 +1,142 @@
+{% extends 'kazi/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container emp-profile">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row head" style="justify-content: space-between; margin-bottom: 1.5rem;">
+            <!-- <div class="col-md-4"></div> -->
+            <div class="profile-head col-md-6">
+                <h1>
+                    Profile
+                </h1>
+                <div>
+                    <h5>
+                        {{candidate.name}}
+                    </h5>
+                    <h6>
+                        {{candidate.profession_title}}
+                    </h6>
+                </div>
+                
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img card">
+                    <div class="image">
+
+                        <img src="{{candidate.imageURL}}">
+                        
+                        
+                    </div>
+
+
+
+                    <!-- <input class="change_pp" type="file" name="file"> -->
+                    <a href="">Change Picture</a>
+                    
+                    <div class="socials">
+                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <a href=""><i class="bi bi-twitter"></i></a>
+                        <a href=""><i class="bi bi-instagram"></i></a>
+                    </div>
+                    
+                    
+                    
+                    <div class="profile-work">
+                        <h3>SKILLS</h3>
+                        {% for skill in candidate_skills %}
+                            <a href="">{{skill}}</a><br/>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8" style="display: grid;">
+
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="bio">
+                        <h3>About</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>User Id</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{user.id}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{candidate.name}} </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{candidate.email}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>123 456 7890</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Profession</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{candidate.profession_title}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="bio account_profile">
+                        <h3>Account Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Account Type</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Empoyee</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Password</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><a href="#">Change Password</a></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

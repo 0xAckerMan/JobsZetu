@@ -65,8 +65,11 @@ class JobCategory(models.Model):
     
     job_category = models.CharField(max_length=50, choices=job_categories, default="other")
     other_job_category = models.CharField(max_length=100, blank=True, null=True)
-    job_subcategory = models.CharField(max_length=50, choices=subcategory_twice, default="other")
-    other_job_subcategory = models.CharField(max_length=50, blank=True, null=True)
+    job_subcategory = models.CharField(max_length=50, choices=subcategory_twice, default="other", unique=True)
+    other_job_subcategory = models.CharField(max_length=50, blank=True, null=True, unique=True)
+    vacancy = models.CharField(max_length=50, blank=True, null=True, default=0)
+    bootstrap_icon = models.CharField(max_length=50, blank=True, null=True, default='fa-solid fa-paperclip')
+
 
     def clean(self):
         if self.job_category == 'other' and not self.other_job_category:
@@ -116,6 +119,14 @@ class Candidate(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.photo.url
+        except:
+            url = ''
+        return url
+
 
 # signals 1
 
@@ -158,7 +169,7 @@ class JobList(models.Model):
     )
     job_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     tag = models.CharField(max_length=100)
-    category = models.ForeignKey('JobCategory', on_delete=models.CASCADE)
+    category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
 
     description = models.TextField()
     rate_per_hour = models.CharField(max_length=30, null=True)

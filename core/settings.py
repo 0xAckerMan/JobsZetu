@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "os.getenv('SECRET_KEY')"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #os.getenv('DEBUG')
+DEBUG = True #os.getenv('DEBUG')
 ALLOWED_HOSTS = ['*']
 
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'kazi',
+    'fontawesomefree'
     # "debug_toolbar",
 ]
 
